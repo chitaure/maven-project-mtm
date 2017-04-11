@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" 
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" 
 	xmlns:db="http://www.mulesoft.org/schema/mule/db" 
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms" 
@@ -33,7 +33,8 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
         <db:select config-ref="Derby_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[SELECT * FROM FLIGHTS]]></db:parameterized-query>
         </db:select>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <json:object-to-json-transformer metadata:id="f3a36c77-0c42-4c6f-8907-65ccefd74b69" doc:name="Object to JSON"/>
+        <set-property propertyName="#['Content-Type']" value="#['application/json']" doc:name="Property"/>
         <jms:outbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="JMS"/>
     </flow>
     
